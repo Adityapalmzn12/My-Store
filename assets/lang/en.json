@@ -1,0 +1,16 @@
+{
+    "customer":"Customer",
+    "alreadySelectedProduct": "Already Selected a product?",
+    "moreProduct":"Show more product",
+    "loginCustomer":"Login a Customer",
+    "recommendation":"Recommendations",
+    "customerBag":"Customer's Bags",
+    "findVariant":"Find different Weight/Variant",
+    "searchProduct":"Search by Product",
+    "checkout":"Checkout",
+    "newArrow":"What's new @ Arrow",
+    "shopStore":"Shop this Arrow",
+    "shopArrow":"Shop all the Arrow",
+    "search":"Search",
+    "similarProduct":"Customer's Bags"
+}

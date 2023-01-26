@@ -1,0 +1,17 @@
+{
+   "order": "ऑर्डर",
+   "customer":"ग्राहक",
+  "alreadySelectedProduct": "पहले से ही एक उत्पाद चुना है?",
+   "moreProduct":"अधिक उत्पाद दिखाएं",
+  "loginCustomer":"एक ग्राहक लॉगिन करें",
+  "recommendation":"Recommendations",
+  "customerBag":"ग्राहक का बैग",
+  "findVariant":"विभिन्न वजन / संस्करण खोजें",
+  "searchProduct":"उत्पाद द्वारा खोजें",
+  "checkout":"चेकआउट",
+  "newArrow":"नया क्या है @ एरो",
+  "shopStore":"इस एरो की खरीदारी करें",
+  "shopArrow":"शॉप ऑल द एरो",
+  "search":"खोज",
+  "similarProduct":"समान उत्पाद"
+}

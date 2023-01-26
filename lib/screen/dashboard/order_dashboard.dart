@@ -1,32 +1,86 @@
+
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yourtrends/bloc/localization/local_cubit.dart';
+import 'package:yourtrends/utils/appLocalizations.dart';
 import 'package:yourtrends/utils/constants.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yourtrends/utils/language.dart';
 
 import '../../common_component/custom_appbar.dart';
 class OrderDashboard extends StatelessWidget {
-  const OrderDashboard({Key? key}) : super(key: key);
-
+    OrderDashboard({Key? key,}) : super(key: key);
+   BuildContext ?contexts;
   @override
   Widget build(BuildContext context) {
+    contexts=context;
     return Scaffold(appBar:CustomAppBar(
       height: 120,
       child: Column(
-        // children: [
-        //   Text('One'),
-        //   Text('Two'),
-        //   Text('Three'),
-        //   Text('Four'),
-        // ],
+        children: [
+
+            Padding(
+              padding: const EdgeInsets.all(18.0),
+              child: Align(
+                alignment: Alignment.topRight,
+                child: DropdownButton<Language>(
+                  underline: const SizedBox(),
+                  icon: const Icon(
+                    Icons.language,
+                    size: 30,
+                    color: Colors.white,
+                  ),
+
+                  onChanged: (Language? language) async {
+                    if (language != null) {
+                      print(language.languageCode.toString());
+                      if(language.languageCode.toString()=="en"){
+                        BlocProvider.of<LocalCubit>(context)
+                            .changeLanguage('en');
+                      }
+                      if(language.languageCode.toString()=="hi"){
+                        BlocProvider.of<LocalCubit>(context)
+                            .changeLanguage('hi');
+                      }
+                      // Locale _locale = await setLocale(language.languageCode);
+                      // MyApp.setLocale(context, _locale);
+                    }
+                  },
+                  items: Language.languageList()
+                      .map<DropdownMenuItem<Language>>(
+                        (e) => DropdownMenuItem<Language>(
+                      value: e,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          Text(
+                            e.flag,
+                            style: const TextStyle(fontSize: 30),
+                          ),
+                          Text(e.name)
+                        ],
+                      ),
+                    ),
+                  )
+                      .toList(),
+                ),
+              ),
+            ),
+
+        ],
       ),
     ),
 
       body: ListView(
         shrinkWrap: true,
-      children: [
+        children: [
 
         _customer(),
-        const Spacer(),
+
         _alreadySelectedProduct(),
-        const Spacer(),
+
         _moreProduct(),
       ],
     ),);
@@ -37,7 +91,7 @@ class OrderDashboard extends StatelessWidget {
          children: [
             Padding(
              padding: const EdgeInsets.all(8.0),
-             child: Align(alignment: Alignment.topLeft,child: Text(Constants.customer,style: const TextStyle(fontSize: 18,fontWeight: FontWeight.bold),)),
+             child: Align(alignment: Alignment.topLeft,child: Text('loginCustomer'.tr(contexts!),style: const TextStyle(fontSize: 18,fontWeight: FontWeight.bold),)),
            ),
       Padding(
       padding: const EdgeInsets.all(18.0),
@@ -58,13 +112,13 @@ class OrderDashboard extends StatelessWidget {
 
                       ),
 
-                      Text(Constants.loginCustomer,maxLines: 2, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center,)
+                      Text('loginCustomer'.tr(contexts!),maxLines: 2, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center,)
 
                     ],
                   ),
                 ),
               ),
-              const Spacer(),
+
               SizedBox(
                 width: 100,
                 child: InkWell(
@@ -78,25 +132,28 @@ class OrderDashboard extends StatelessWidget {
 
                       ),
 
-                      Text(Constants.recommendation,maxLines: 2, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center,)
+                      Text('recommendation'.tr(contexts!),maxLines: 2, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center,)
 
                     ],
                   ),
                 ),
               ),
-              const Spacer(),
-              InkWell(
 
-                child: Column(
-                  children:  [
-                    const Icon(
+              SizedBox(
+                width: 100,
+                child: InkWell(
 
-                      Icons.account_circle,
+                  child: Column(
+                    children:  [
+                      const Icon(
+
+                        Icons.account_circle,
 
 
-                    ),
-                    Text(Constants.customerBag)
-                  ],
+                      ),
+                      Text('customerBag'.tr(contexts!),maxLines: 2, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center,)
+                    ],
+                  ),
                 ),
               ),
 
@@ -112,7 +169,7 @@ class OrderDashboard extends StatelessWidget {
       children: [
          Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Align(alignment: Alignment.topLeft,child: Text(Constants.alreadySelectedProduct,style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 18),)),
+          child: Align(alignment: Alignment.topLeft,child: Text('alreadySelectedProduct'.tr(contexts!),style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 18),)),
         ),
         Padding(
           padding:  const EdgeInsets.all(18.0),
@@ -133,12 +190,12 @@ class OrderDashboard extends StatelessWidget {
 
 
                       ),
-                      Text(Constants.findVariant,maxLines: 2,   overflow: TextOverflow.ellipsis,textAlign: TextAlign.center,)
+                      Text('findVariant'.tr(contexts!),maxLines: 2,   overflow: TextOverflow.ellipsis,textAlign: TextAlign.center,)
                     ],
                   ),
                 ),
               ),
-              const Spacer(),
+
               SizedBox(
                 width: 100,
 
@@ -153,13 +210,13 @@ class OrderDashboard extends StatelessWidget {
 
 
                       ),
-                      Text(Constants.searchProduct,maxLines: 2, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center,)
+                      Text('searchProduct'.tr(contexts!),maxLines: 2, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center,)
                     ],
                   ),
                 ),
               ),
 
-              const Spacer(),
+
               SizedBox(
                 width: 100,
                 child: InkWell(
@@ -172,7 +229,7 @@ class OrderDashboard extends StatelessWidget {
 
 
                       ),
-                      Text(Constants.checkout,maxLines: 2, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center,)
+                      Text('checkout'.tr(contexts!),maxLines: 2, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center,)
                     ],
                   ),
                 ),
@@ -190,7 +247,7 @@ class OrderDashboard extends StatelessWidget {
       children: [
          Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Align(alignment: Alignment.topLeft,child: Text(Constants.moreProduct,style: const TextStyle(fontSize: 18,fontWeight: FontWeight.bold),)),
+          child: Align(alignment: Alignment.topLeft,child: Text("moreProduct".tr(contexts!),style: const TextStyle(fontSize: 18,fontWeight: FontWeight.bold),)),
         ),
         Padding(
           padding: const EdgeInsets.all(18.0),
@@ -210,13 +267,13 @@ class OrderDashboard extends StatelessWidget {
 
 
                       ),
-                      Text(Constants.newArrow,maxLines: 2, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center,)
+                      Text('newArrow'.tr(contexts!),maxLines: 2, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center,)
 
                     ],
                   ),
                 ),
               ),
-              const Spacer(),
+
               SizedBox(
                 width: 100,
                 child: InkWell(
@@ -229,14 +286,14 @@ class OrderDashboard extends StatelessWidget {
 
 
                       ),
-                      Text(Constants.shopStore,maxLines: 2, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center,)
+                      Text('shopStore'.tr(contexts!),maxLines: 2, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center,)
 
 
                     ],
                   ),
                 ),
               ),
-              const Spacer(),
+
               SizedBox(
                 width: 100,
                 child: InkWell(
@@ -249,33 +306,13 @@ class OrderDashboard extends StatelessWidget {
 
 
                       ),
-                      Text(Constants.shopStore,maxLines: 2, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center,)
+                      Text('shopStore'.tr(contexts!),maxLines: 2, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center,)
 
                     ],
                   ),
                 ),
               ),
-              const Spacer(),
-              SizedBox(
-                width: 100,
-                child: InkWell(
 
-                  child: Column(
-                    children:  [
-                      const Icon(
-
-                        Icons.account_circle,
-
-
-                      ),
-
-                      Text(Constants.search,maxLines: 2, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center,)
-
-                    ],
-                  ),
-                ),
-              ),
-              const Spacer(),
               SizedBox(
                 width: 100,
                 child: InkWell(
@@ -289,7 +326,27 @@ class OrderDashboard extends StatelessWidget {
 
                       ),
 
-                      Text(Constants.similarProduct,maxLines: 2, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center,)
+                      Text('search'.tr(contexts!),maxLines: 2, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center,)
+
+                    ],
+                  ),
+                ),
+              ),
+
+              SizedBox(
+                width: 100,
+                child: InkWell(
+
+                  child: Column(
+                    children:  [
+                      const Icon(
+
+                        Icons.account_circle,
+
+
+                      ),
+
+                      Text('similarProduct'.tr(contexts!),maxLines: 2, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center,)
 
                     ],
                   ),

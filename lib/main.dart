@@ -1,61 +1,68 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yourtrends/screen/dashboard/order_dashboard.dart';
+import 'package:yourtrends/bloc/localization/cache_helper.dart';
+import 'package:yourtrends/bloc/localization/local_cubit.dart';
+import 'package:yourtrends/bloc/localization/local_state.dart';
 import 'package:yourtrends/screen/home.dart';
+
 import 'package:yourtrends/screen/navigation_bar.dart';
-import 'package:yourtrends/screen/splash.dart';
+
+import 'package:yourtrends/utils/appLocalizations.dart';
 import 'bloc/internet_check/network_bloc.dart';
 import 'bloc/internet_check/network_event.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
-
-void main() {
-  runApp( MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await CacheHelper.init();
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-
-
   @override
   Widget build(BuildContext context) {
-
     return MultiBlocProvider(
-      providers: [
-        // BlocProvider(create: (context) => WeatherBloc(),),
-
-        BlocProvider(
+        providers: [
+          BlocProvider(
             create: (context) => NetworkBloc()..add(NetworkObserve()),
-            child:  HomeScreen()),
-        // BlocProvider(create: (context) => StorageBloc(),),
-      ],
-      child: MaterialApp(
-        title: 'Flutter Demo',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          // This is the theme of your application.
-          //
-          // Try running your application with "flutter run". You'll see the
-          // application has a blue toolbar. Then, without quitting the app, try
-          // changing the primarySwatch below to Colors.green and then invoke
-          // "hot reload" (press "r" in the console where you ran "flutter run",
-          // or simply save your changes to "hot reload" in a Flutter IDE).
-          // Notice that the counter didn't reset back to zero; the application
-          // is not restarted.
-            primaryColor:  Color(0xffffd31d)
-        ),
-        // home: Splash(),
-        home:NavigationBottomBar(),
-        supportedLocales: [
-          Locale('en', "US"),
-          Locale("ar", ""),
+          ),
+          BlocProvider(
+              create: (BuildContext context) =>
+                  LocalCubit()..getSavedLanguage()),
         ],
-
-        routes: <String,WidgetBuilder>{
-          '/HomePage':(BuildContext ctx)=> HomeScreen(),
-         ///go one page to another
-          ///Navigator.of(context).popAndPushNamed('/HomePage'));
-        },
-      ),
-    );
-
+        child: BlocBuilder<LocalCubit, LocalState>(
+          builder: (context, state) {
+            if (state is ChangeLocalState) {
+              return MaterialApp(
+                locale: state.locale,
+                title: 'Localization in flutter example ',
+                theme: ThemeData(
+                  primarySwatch: Colors.blue,
+                ),
+                supportedLocales: const [
+                  Locale('en', ""),
+                  Locale("hi", ""),
+                ],
+                localizationsDelegates: const [
+                  AppLocalizations.delegate,
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                  GlobalCupertinoLocalizations.delegate,
+                ],
+                localeResolutionCallback: (currentLocal, supportedLocales) {
+                  for (var locale in supportedLocales) {
+                    if (currentLocal != null &&
+                        currentLocal.languageCode == locale.languageCode) {
+                      return currentLocal;
+                    }
+                  }
+                  return supportedLocales.first;
+                },
+                home: HomeScreen(),
+              );
+            }
+            return Container();
+          },
+        ));
   }
 }

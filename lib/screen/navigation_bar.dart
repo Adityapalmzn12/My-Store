@@ -13,11 +13,11 @@ class NavigationBottomBar extends StatefulWidget {
 
 class _NavigationBottomBarState extends State<NavigationBottomBar> {
   int _selectedIndex = 0;
-  static const List<Widget> _widgetOptions = <Widget>[
+  static  final List<Widget> _widgetOptions = <Widget>[
     OrderDashboard(),
-    FulfillDashboard(),
-    StoreDashboard(),
-    ActionDashboard()
+    const FulfillDashboard(),
+    const StoreDashboard(),
+    const ActionDashboard()
   ];
 
   void _onItemTapped(int index) {

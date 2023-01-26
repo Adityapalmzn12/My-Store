@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yourtrends/screen/dashboard/order_dashboard.dart';
-import 'package:yourtrends/screen/splash.dart';
+import 'package:yourtrends/screen/navigation_bar.dart';
+
 
 import '../bloc/internet_check/network_bloc.dart';
 import '../bloc/internet_check/network_state.dart';
@@ -15,7 +16,7 @@ class HomeScreen extends StatelessWidget {
             if (state is NetworkFailure) {
               return const Text("No Internet Connection");
             } else if (state is NetworkSuccess) {
-              return const OrderDashboard();
+              return  NavigationBottomBar();
             } else {
               return const SizedBox.shrink();
             }
