@@ -14,7 +14,15 @@ class HomeScreen extends StatelessWidget {
         child:BlocBuilder<NetworkBloc, NetworkState>(
           builder: (context, state) {
             if (state is NetworkFailure) {
-              return const Text("No Internet Connection");
+              return Center(
+                child: Wrap(
+                  children: [
+                    Center(child: const Text("No Internet Connection")),
+                    SizedBox(height: 20,),
+                    Center(child: Text("🥱",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 22),))
+                  ],
+                ),
+              );
             } else if (state is NetworkSuccess) {
               return  NavigationBottomBar();
             } else {
