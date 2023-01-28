@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yourtrends/bloc/localization/local_cubit.dart';
 import 'package:yourtrends/utils/appLocalizations.dart';
 import 'package:yourtrends/utils/constants.dart';
@@ -17,57 +18,62 @@ class OrderDashboard extends StatelessWidget {
   Widget build(BuildContext context) {
     contexts=context;
     return Scaffold(appBar:CustomAppBar(
-      height: 120,
-      child: Column(
+      height: 110,
+      child: ListView(
+        shrinkWrap: true,
         children: [
-
-            Padding(
-              padding: const EdgeInsets.all(18.0),
-              child: Align(
-                alignment: Alignment.topRight,
-                child: DropdownButton<Language>(
-                  underline: const SizedBox(),
-                  icon: const Icon(
-                    Icons.language,
-                    size: 30,
-                    color: Colors.white,
-                  ),
-
-                  onChanged: (Language? language) async {
-                    if (language != null) {
-                      print(language.languageCode.toString());
-                      if(language.languageCode.toString()=="en"){
-                        BlocProvider.of<LocalCubit>(context)
-                            .changeLanguage('en');
-                      }
-                      if(language.languageCode.toString()=="hi"){
-                        BlocProvider.of<LocalCubit>(context)
-                            .changeLanguage('hi');
-                      }
-                      // Locale _locale = await setLocale(language.languageCode);
-                      // MyApp.setLocale(context, _locale);
-                    }
-                  },
-                  items: Language.languageList()
-                      .map<DropdownMenuItem<Language>>(
-                        (e) => DropdownMenuItem<Language>(
-                      value: e,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: <Widget>[
-                          Text(
-                            e.flag,
-                            style: const TextStyle(fontSize: 30),
-                          ),
-                          Text(e.name)
-                        ],
-                      ),
-                    ),
-                  )
-                      .toList(),
-                ),
+          Align(
+            alignment: Alignment.topRight,
+            child: DropdownButton<Language>(
+              underline: const SizedBox(),
+              icon: const Icon(
+                Icons.language,
+                size: 30,
+                color: Colors.white,
               ),
+
+              onChanged: (Language? language) async {
+                if (language != null) {
+                  print(language.languageCode.toString());
+                  if(language.languageCode.toString()=="en"){
+                    BlocProvider.of<LocalCubit>(context)
+                        .changeLanguage('en');
+                  }
+                  if(language.languageCode.toString()=="hi"){
+                    BlocProvider.of<LocalCubit>(context)
+                        .changeLanguage('hi');
+                  }
+                  // Locale _locale = await setLocale(language.languageCode);
+                  // MyApp.setLocale(context, _locale);
+                }
+              },
+              items: Language.languageList()
+                  .map<DropdownMenuItem<Language>>(
+                    (e) => DropdownMenuItem<Language>(
+                  value: e,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      Text(
+                        e.flag,
+                        style: const TextStyle(fontSize: 30),
+                      ),
+                      Text(e.name)
+                    ],
+                  ),
+                ),
+              )
+                  .toList(),
             ),
+          ),
+           Align(alignment: Alignment.topCenter,child: SvgPicture.asset(
+               width: 50.0,
+               height: 30.0,
+               "assets/svgIcons/myIcons.svg",
+               color: Colors.deepOrange,
+               semanticsLabel: 'A red up arrow'
+          ),),
+
 
         ],
       ),

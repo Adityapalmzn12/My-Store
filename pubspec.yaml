@@ -39,6 +39,7 @@ dependencies:
   flutter_bloc: ^8.0.1
   equatable: ^2.0.3
   connectivity_plus: ^2.3.9
+  flutter_svg: ^1.1.6
 
   flutter_localizations: # Add this line
     sdk: flutter # Add this line
@@ -71,6 +72,7 @@ flutter:
   assets:
     - assets/lang/hi.json
     - assets/lang/en.json
+    - assets/svgIcons/myIcons.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
