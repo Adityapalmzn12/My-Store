@@ -17,7 +17,8 @@ class OrderDashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     contexts=context;
-    return Scaffold(appBar:CustomAppBar(
+    return Scaffold(
+      appBar:CustomAppBar(
       height: 110,
       child: ListView(
         shrinkWrap: true,

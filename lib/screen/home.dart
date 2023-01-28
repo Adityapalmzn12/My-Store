@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yourtrends/screen/dashboard/order_dashboard.dart';
 import 'package:yourtrends/screen/navigation_bar.dart';
+import 'package:yourtrends/screen/no_intenetconnection.dart';
 
 
 import '../bloc/internet_check/network_bloc.dart';
@@ -14,23 +15,17 @@ class HomeScreen extends StatelessWidget {
         child:BlocBuilder<NetworkBloc, NetworkState>(
           builder: (context, state) {
             if (state is NetworkFailure) {
-              return Center(
-                child: Wrap(
-                  children: [
-                    Center(child: const Text("No Internet Connection")),
-                    SizedBox(height: 20,),
-                    Center(child: Text("🥱",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 22),))
-                  ],
-                ),
-              );
+              return const NoInternetConnection();
             } else if (state is NetworkSuccess) {
-              return  NavigationBottomBar();
+
+               return  NavigationBottomBar();
             } else {
-              return const SizedBox.shrink();
+              return  const NoInternetConnection();
             }
           },
         ),
       ),
     );
   }
+
 }

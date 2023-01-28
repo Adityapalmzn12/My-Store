@@ -61,7 +61,7 @@ class MyApp extends StatelessWidget {
                 home: HomeScreen(),
               );
             }
-            return Container();
+            return HomeScreen();
           },
         ));
   }

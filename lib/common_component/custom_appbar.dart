@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yourtrends/bloc/internet_check/network_bloc.dart';
+import 'package:yourtrends/bloc/internet_check/network_state.dart';
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Widget child;
   final double height;
@@ -19,5 +22,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       alignment: Alignment.center,
       child: child,
     );
+
+
+
+
   }
+
 }
